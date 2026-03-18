@@ -19,7 +19,7 @@ require("telescope").setup({
     file_browser = {
       hidden = { file_browser = true, folder_browser = true },
       respect_gitignore = false,
-      fd_opts = { "--exclude", ".git" },
+      git_status = false,
     },
   },
 })
