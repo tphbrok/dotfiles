@@ -3,15 +3,17 @@ set -e
 
 DOTFILES="$HOME/dotfiles"
 
-echo "-> Ensuring Homebrew installation"
+step() { echo "-> $*"; }
+
+step "Ensuring Homebrew installation"
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-echo "-> Installing Homebrew packages"
+step "Installing Homebrew packages"
 brew bundle --file="$DOTFILES/Brewfile"
 
-echo "-> Creating symlinks in $HOME"
+step "Creating symlinks in $HOME"
 INCLUDE=(
   .zshrc
 )
@@ -20,4 +22,7 @@ for name in "${INCLUDE[@]}"; do
   ln -sfn "$DOTFILES/$name" "$HOME/$name"
 done
 
-echo "-> Done, reload your shell"
+step "Reloading shell"
+source ~/.zshrc
+
+echo "Done"
