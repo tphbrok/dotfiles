@@ -1,0 +1,2 @@
+ctrl - b : open -a Firefox.app
+ctrl - t : open -a Ghostty.app

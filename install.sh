@@ -24,6 +24,10 @@ for name in "${INCLUDE[@]}"; do
   ln -sfn "$DOTFILES/$name" "$HOME/$name"
 done
 
+step "Starting skhd service"
+skhd --install-service 2>/dev/null || true
+skhd --start-service
+
 step "Reloading shell"
 source ~/.zshrc
 
