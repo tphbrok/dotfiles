@@ -2,12 +2,7 @@ vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-telescope/telescope.nvim",
   "https://github.com/nvim-telescope/telescope-file-browser.nvim",
-  "https://github.com/kdheepak/lazygit.nvim",
-  "https://github.com/gbprod/nord.nvim",
 })
-
-require("nord").setup({})
-vim.cmd.colorscheme("nord")
 
 require("telescope").setup({
   defaults = {
@@ -28,5 +23,3 @@ require("telescope").setup({
     },
   },
 })
-require("telescope").load_extension("file_browser")
-require("telescope").load_extension("lazygit")
