@@ -15,6 +15,8 @@ brew bundle --file="$DOTFILES/Brewfile"
 
 step "Creating symlinks in $HOME"
 INCLUDE=(
+  .config
+  .hushlogin
   .zshrc
 )
 for name in "${INCLUDE[@]}"; do
