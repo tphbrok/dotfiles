@@ -28,6 +28,19 @@ step "Starting skhd service"
 skhd --install-service 2>/dev/null || true
 skhd --start-service
 
+step "Syncing global npm packages"
+xargs npm install -g < "$DOTFILES/npm-globals.txt"
+installed=$(npm list -g --depth=0 --parseable | xargs -I{} basename {} | sort)
+desired=$(sort "$DOTFILES/npm-globals.txt")
+to_remove=$(comm -23 <(echo "$installed") <(echo "$desired"))
+[[ -n "$to_remove" ]] && echo "$to_remove" | xargs npm uninstall -g
+
+step "Setting up nvm and Node LTS"
+export NVM_DIR="$HOME/.nvm"
+source "$(brew --prefix nvm)/nvm.sh"
+nvm install --lts
+nvm alias default lts/*
+
 step "Reloading shell"
 source ~/.zshrc
 

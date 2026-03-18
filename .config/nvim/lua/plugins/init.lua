@@ -1,7 +1,10 @@
 require("plugins.nord")
 require("plugins.telescope")
 require("plugins.lazygit")
+require("plugins.treesitter")
+require("plugins.lsp")
+require("plugins.blink")
+require("plugins.autopairs")
 
--- load extensions after all plugins are guaranteed to be loaded
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("lazygit")
