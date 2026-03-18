@@ -9,5 +9,7 @@ cask "copilot-cli"
 cask "firefox"
 cask "ghostty"
 cask "proton-drive"
+cask "rectangle"
+cask "scroll-reverser"
 
 tap "asmvik/formulae"

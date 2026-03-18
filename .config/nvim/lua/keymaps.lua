@@ -17,3 +17,6 @@ vim.keymap.set("n", "<leader>w<Left>",  "<C-w>h", { desc = "Go left" })
 vim.keymap.set("n", "<leader>w<Right>", "<C-w>l", { desc = "Go right" })
 vim.keymap.set("n", "<leader>w<Up>",    "<C-w>k", { desc = "Go up" })
 vim.keymap.set("n", "<leader>w<Down>",  "<C-w>j", { desc = "Go down" })
+
+-- search
+vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Live grep" })
