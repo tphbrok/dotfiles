@@ -1,6 +1,7 @@
+brew "fd"
 brew "jq"
 brew "lazygit"
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 brew "ripgrep"
 brew "skhd"
 
