@@ -16,5 +16,9 @@ else
   git -C "$main" fetch origin main && \
   git -C "$main" worktree add "$worktree" -b "$branch" origin/main && \
   cd "$worktree" && \
-  [[ -f package.json ]] && npm install
+  if [[ -f pnpm-lock.yaml ]]; then
+    pnpm install
+  elif [[ -f package.json ]]; then
+    npm install
+  fi
 fi
