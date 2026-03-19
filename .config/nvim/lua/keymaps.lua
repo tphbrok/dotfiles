@@ -20,3 +20,6 @@ vim.keymap.set("n", "<leader>w<Down>",  "<C-w>j", { desc = "Go down" })
 
 -- search
 vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Live grep" })
+
+-- open netrw
+vim.keymap.set("n", "<leader>n", "<cmd>Explore<cr>", { desc = "Netrw" })
