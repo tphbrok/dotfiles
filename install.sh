@@ -28,11 +28,14 @@ step "Starting skhd service"
 skhd --install-service 2>/dev/null || true
 skhd --start-service
 
-step "(disabled) Syncing global npm packages"
-# xargs npm install -g < "$DOTFILES/npm-globals.txt"
-# installed=$(npm list -g --depth=0 --parseable | xargs -I{} basename {} | sort)
-# desired=$(sort "$DOTFILES/npm-globals.txt")
-# to_remove=$(comm -23 <(echo "$installed") <(echo "$desired"))
-# [[ -n "$to_remove" ]] && echo "$to_remove" | xargs npm uninstall -g
+step "Installing mise tools"
+mise install
+
+step "Syncing global npm packages"
+xargs npm install -g < "$DOTFILES/npm-globals.txt"
+installed=$(npm list -g --depth=0 --parseable | xargs -I{} basename {} | sort)
+desired=$(sort "$DOTFILES/npm-globals.txt")
+to_remove=$(comm -23 <(echo "$installed") <(echo "$desired"))
+[[ -n "$to_remove" ]] && echo "$to_remove" | xargs npm uninstall -g
 
 echo "Done, reload your shell to finish"
