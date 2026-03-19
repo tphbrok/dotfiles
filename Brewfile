@@ -8,8 +8,8 @@ brew "mise"
 brew "neovim", args: ["HEAD"]
 brew "ripgrep"
 brew "skhd"
-brew "vtsls"
 brew "vscode-langservers-extracted"
+brew "vtsls"
 
 cask "copilot-cli"
 cask "firefox"

@@ -1,7 +1,7 @@
 alias brewsync="brew bundle --file=$HOME/dotfiles/Brewfile && brew bundle cleanup --file=$HOME/dotfiles/Brewfile --force"
 alias c=clear
-alias npmsync="cat $HOME/dotfiles/npm-globals.txt | xargs npm install -g"
 alias lg=lazygit
+alias npmsync="cat $HOME/dotfiles/npm-globals.txt | xargs npm install -g"
 
 # Autoload zsh functions
 fpath=("$HOME/dotfiles/.zsh/functions" $fpath)
