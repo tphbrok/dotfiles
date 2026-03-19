@@ -13,6 +13,7 @@ brew "vtsls"
 
 cask "copilot-cli"
 cask "firefox"
+cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"
 cask "proton-drive"
 cask "rectangle"
