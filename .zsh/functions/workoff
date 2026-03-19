@@ -1,0 +1,36 @@
+local main=$(git-main-worktree)
+
+local worktrees=()
+while IFS= read -r line; do
+  [[ "$line" == worktree\ * ]] && {
+    local wt="${line#worktree }"
+    [[ "$wt" != "$main" ]] && worktrees+=("$wt")
+  }
+done < <(git worktree list --porcelain)
+
+if [[ ${#worktrees[@]} -eq 0 ]]; then
+  echo "No worktrees to remove"
+  return 0
+fi
+
+local i=1
+for wt in "${worktrees[@]}"; do
+  echo "$i) $wt"
+  ((i++))
+done
+
+echo -n "Select worktrees to remove (space-separated): "
+read -A selections
+
+cd "$main"
+for selection in "${selections[@]}"; do
+  local worktree="${worktrees[$selection]}"
+  if [[ "$worktree" == "$main" ]]; then
+    echo "Cannot remove main worktree, skipping"
+    continue
+  fi
+  local branch=$(git -C "$worktree" symbolic-ref --short HEAD)
+  git worktree remove "$worktree" --force
+  git branch -d "$branch" || git branch -D "$branch"
+  echo "Removed worktree $worktree and branch $branch"
+done
