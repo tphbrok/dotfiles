@@ -6,6 +6,7 @@ require("plugins.lsp")
 require("plugins.blink")
 require("plugins.autopairs")
 require("plugins.lualine")
+require("plugins.format")
 
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("lazygit")

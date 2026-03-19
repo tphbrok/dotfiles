@@ -1,8 +1,8 @@
 brew "fd"
 brew "jq"
 brew "lazygit"
+brew "lua-language-server"
 brew "neovim", args: ["HEAD"]
-brew "nvm"
 brew "ripgrep"
 brew "skhd"
 brew "vtsls"
