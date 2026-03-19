@@ -1,4 +1,4 @@
-alias brewsync="brew bundle cleanup --file=$HOME/dotfiles/Brewfile --force"
+alias brewsync="brew bundle --file=$HOME/dotfiles/Brewfile && brew bundle cleanup --file=$HOME/dotfiles/Brewfile --force"
 alias c=clear
 alias npmsync="cat $HOME/dotfiles/npm-globals.txt | xargs npm install -g"
 alias lg=lazygit
