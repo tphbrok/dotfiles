@@ -1,0 +1,82 @@
+local model="gpt-5.1-mini"
+
+# get list of changed files vs origin/main
+local files=()
+while IFS= read -r line; do
+  files+=("$line")
+done < <(git diff --name-only origin/main...HEAD)
+
+if [[ ${#files[@]} -eq 0 ]]; then
+  echo "No changed files vs origin/main"
+  return 0
+fi
+
+local to_review=()
+
+if [[ "$1" == "--all" ]]; then
+  to_review=("${files[@]}")
+else
+  local i=1
+  for f in "${files[@]}"; do
+    echo "$i) $f"
+    ((i++))
+  done
+
+  echo -n "\nSelect file to review: "
+  read selection
+  local file="${files[$selection]}"
+  if [[ -z "$file" ]]; then
+    echo "Invalid selection"
+    return 1
+  fi
+  to_review=("$file")
+fi
+
+local all_results=""
+
+for file in "${to_review[@]}"; do
+  if [[ ! -f "$file" ]]; then
+    echo "-> Skipping $file (deleted or not found)"
+    continue
+  fi
+
+  echo "-> Reviewing $file..."
+
+  local diff=$(git diff origin/main...HEAD -- "$file")
+  local content=$(cat "$file")
+
+  local prompt="You are reviewing a code change as part of a pull request.
+
+File: $file
+
+=== FULL FILE CONTENT ===
+$content
+
+=== DIFF VS ORIGIN/MAIN ===
+$diff
+
+Review this file and its changes. Focus on:
+- Correctness: logic errors, off-by-one errors, wrong assumptions
+- Edge cases: unhandled nulls, empty inputs, boundary conditions
+- Error handling: missing try/catch, unhandled promise rejections, silent failures
+- Security: input validation, data exposure, injection risks, insecure defaults
+- Complexity: overly complex logic that is hard to reason about or maintain
+- Naming and clarity: misleading names, unclear intent, magic values
+- Side effects: unexpected mutations, global state changes
+- Consistency: does this code follow the patterns already established in the diff
+
+Do NOT comment on formatting, style, or anything that a linter or formatter would catch.
+
+Be direct and specific. For each finding, state the line or function it applies to and why it matters.
+If you find nothing significant, say so clearly."
+
+  local result=$(copilot -p "$prompt" -s --no-ask-user --model "$model" --allow-tool='shell(git:*)')
+  all_results+="### $file\n\n$result\n\n"
+done
+
+echo ""
+echo "╔══════════════════════════════════════════════════════════════╗"
+echo "  Review results — model: $model"
+echo "╚══════════════════════════════════════════════════════════════╝"
+echo ""
+echo "$all_results"
