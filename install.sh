@@ -35,13 +35,4 @@ desired=$(sort "$DOTFILES/npm-globals.txt")
 to_remove=$(comm -23 <(echo "$installed") <(echo "$desired"))
 [[ -n "$to_remove" ]] && echo "$to_remove" | xargs npm uninstall -g
 
-step "Setting up nvm and Node LTS"
-export NVM_DIR="$HOME/.nvm"
-source "$(brew --prefix nvm)/nvm.sh"
-nvm install --lts
-nvm alias default lts/*
-
-step "Reloading shell"
-source ~/.zshrc
-
-echo "Done"
+echo "Done, reload your shell to finish"
