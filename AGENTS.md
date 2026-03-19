@@ -12,8 +12,6 @@
 - Use zsh autoloaded functions for anything that needs `cd` or shell state
 - Scripts in `scripts/` or `tools/` run as subprocesses — they cannot affect the current shell
 - One function per file in `.zsh/functions/`, no wrapper needed (autoload handles it)
-- Add `autoload -Uz <name>` to `.zshrc` for each new function
-- Prefer explicit over implicit — don't source entire directories blindly
 
 ## Neovim
 
