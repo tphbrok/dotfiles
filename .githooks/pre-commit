@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-if ! diff -q AGENTS.md .github/copilot-instructions.md > /dev/null 2>&1; then
-  cp AGENTS.md .github/copilot-instructions.md
-  git add .github/copilot-instructions.md
-  echo "Updated .github/copilot-instructions.md from AGENTS.md"
-fi
