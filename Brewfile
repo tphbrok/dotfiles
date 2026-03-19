@@ -1,4 +1,6 @@
+brew "atuin"
 brew "fd"
+brew "gh"
 brew "jq"
 brew "lazygit"
 brew "lua-language-server"

@@ -10,3 +10,5 @@ for f in "$HOME/dotfiles/.zsh/functions"/*; do
 done
 
 eval "$(mise activate zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
+
