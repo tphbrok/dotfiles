@@ -23,3 +23,26 @@ vim.keymap.set("n", "<leader>/", builtin.live_grep, { desc = "Live grep" })
 
 -- open netrw
 vim.keymap.set("n", "<leader>n", "<cmd>Explore<cr>", { desc = "Netrw" })
+
+-- LSP (buffer-local, set on attach)
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("lsp_keymaps", { clear = true }),
+  callback = function(args)
+    local map = function(mode, lhs, rhs, desc)
+      vim.keymap.set(mode, lhs, rhs, { buffer = args.buf, desc = desc })
+    end
+
+    map("n", "gd",         vim.lsp.buf.definition,                                    "Go to definition")
+    map("n", "gD",         vim.lsp.buf.declaration,                                   "Go to declaration")
+    map("n", "gt",         vim.lsp.buf.type_definition,                               "Go to type definition")
+    map("n", "<leader>ca", vim.lsp.buf.code_action,                                   "Code action")
+    map("n", "<leader>cr", vim.lsp.buf.rename,                                        "Rename")
+    map("n", "<leader>cd", vim.diagnostic.open_float,                                 "Show diagnostic")
+    map("n", "[d",         vim.diagnostic.goto_prev,                                  "Previous diagnostic")
+    map("n", "]d",         vim.diagnostic.goto_next,                                  "Next diagnostic")
+    map("n", "[D",         function() vim.diagnostic.goto_prev({ wrap = false }) end, "First diagnostic")
+    map("n", "]D",         function() vim.diagnostic.goto_next({ wrap = false }) end, "Last diagnostic")
+    map("n", "<leader>D",  function() require("telescope.builtin").diagnostics() end, "All diagnostics")
+    map("n", "<leader>d",  function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, "Buffer diagnostics")
+  end,
+})
