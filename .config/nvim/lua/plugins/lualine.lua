@@ -6,8 +6,8 @@ require("lualine").setup({
   options = {
     theme = "nord",
     globalstatus = true,
-    section_separators = "",
-    component_separators = "│",
+    section_separators = { left = "\u{E0B0}", right = "\u{E0B2}" },
+    component_separators = { left = "\u{E0B1}", right = "\u{E0B3}" },
   },
   sections = {
     lualine_a = { "mode" },
