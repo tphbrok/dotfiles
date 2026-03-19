@@ -10,5 +10,3 @@ opt.expandtab = true
 opt.termguicolors = true
 
 opt.shortmess:append("I")
-
-opt.cmdheight = 0
