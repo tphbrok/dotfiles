@@ -8,3 +8,5 @@ fpath=("$HOME/dotfiles/.zsh/functions" $fpath)
 for f in "$HOME/dotfiles/.zsh/functions"/*; do
   autoload -Uz "${f:t}"
 done
+
+eval "$(mise activate zsh)"

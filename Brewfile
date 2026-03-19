@@ -2,6 +2,7 @@ brew "fd"
 brew "jq"
 brew "lazygit"
 brew "lua-language-server"
+brew "mise"
 brew "neovim", args: ["HEAD"]
 brew "ripgrep"
 brew "skhd"
