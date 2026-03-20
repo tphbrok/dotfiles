@@ -1,0 +1,40 @@
+ai() {
+  local subcommand="${1:-}"
+  shift 2>/dev/null || true
+
+  case "$subcommand" in
+    opencode)
+      opencode "$@"
+      ;;
+    local)
+      local provider="${1:-}"
+      shift 2>/dev/null || true
+      case "$provider" in
+        opencode)
+          if ! lms status 2>/dev/null | grep -q "running"; then
+            echo "Starting LM Studio server..."
+            lms server start --port 1234
+          fi
+          if ! lms ps 2>/dev/null | grep -q "qwen"; then
+            echo "Loading default model..."
+            lms load qwen/qwen3.5-35b-a3b --context-length 65536 -y
+          fi
+          local model="${1:-}"
+          [[ -n "$model" ]] && shift
+          opencode ${model:+-m "lmstudio/$model"} "$@"
+          ;;
+        *)
+          echo "Usage: ai local <opencode> [model]"
+          return 1
+          ;;
+      esac
+      ;;
+    copilot)
+      copilot --model gpt-5-mini --allow-tool="read, write, url, shell(npm:*), shell(npx:*), shell(pnpm:*)" "$@"
+      ;;
+    *)
+      echo "Usage: ai <opencode|local|copilot> [args...]"
+      return 1
+      ;;
+  esac
+}

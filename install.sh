@@ -19,11 +19,13 @@ INCLUDE=(
   .config/ghostty
   .config/mise
   .config/nvim
+  .config/opencode
   .config/skhd
   .hushlogin
   .zshrc
 )
 for name in "${INCLUDE[@]}"; do
+  rm -rf "$HOME/$name"
   echo "$DOTFILES/$name -> $HOME/$name"
   ln -sfn "$DOTFILES/$name" "$HOME/$name"
 done

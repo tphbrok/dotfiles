@@ -1,6 +1,5 @@
 PS1=' %~ $ '
 
-alias ai='copilot --model gpt-5-mini --allow-tool="read, write, url, shell(npm:*), shell(npx:*), shell(pnpm:*)"'
 alias brewsync="brew bundle --file=$HOME/dotfiles/Brewfile && brew bundle cleanup --file=$HOME/dotfiles/Brewfile --force"
 alias c=clear
 alias lg=lazygit
@@ -22,4 +21,5 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
+
+export PATH="$HOME/.lmstudio/bin:$PATH"
