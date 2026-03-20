@@ -8,10 +8,13 @@ brew "mise"
 brew "neovim", args: ["HEAD"]
 brew "ripgrep"
 brew "skhd"
+brew "tree"
 brew "vscode-langservers-extracted"
 brew "vtsls"
+brew "yt-dlp"
 
 cask "copilot-cli"
+cask "elgato-camera-hub"
 cask "firefox"
 cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"

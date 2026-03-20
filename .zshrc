@@ -1,3 +1,5 @@
+PS1=' %~ $ '
+
 alias ai='copilot --model gpt-5-mini --allow-tool="read, write, url, shell(npm:*), shell(npx:*), shell(pnpm:*)"'
 alias brewsync="brew bundle --file=$HOME/dotfiles/Brewfile && brew bundle cleanup --file=$HOME/dotfiles/Brewfile --force"
 alias c=clear
@@ -13,3 +15,11 @@ done
 eval "$(mise activate zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 
+
+# pnpm
+export PNPM_HOME="/Users/tphbrok/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

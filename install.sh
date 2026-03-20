@@ -15,7 +15,11 @@ brew bundle --file="$DOTFILES/Brewfile"
 
 step "Creating symlinks in $HOME"
 INCLUDE=(
-  .config
+  .config/atuin
+  .config/ghostty
+  .config/mise
+  .config/nvim
+  .config/skhd
   .hushlogin
   .zshrc
 )
@@ -32,10 +36,10 @@ step "Installing mise tools"
 mise install
 
 step "Syncing global npm packages"
-xargs npm install -g < "$DOTFILES/npm-globals.txt"
-installed=$(npm list -g --depth=0 --parseable | xargs -I{} basename {} | sort)
-desired=$(sort "$DOTFILES/npm-globals.txt")
+xargs pnpm install -g < "$DOTFILES/npm-globals.txt"
+installed=$(pnpm list -g --depth=0 --json | jq -r '.[0].dependencies | keys[]' | sort)
+desired=$(grep -v '^\s*$' "$DOTFILES/npm-globals.txt" | sort)
 to_remove=$(comm -23 <(echo "$installed") <(echo "$desired"))
-[[ -n "$to_remove" ]] && echo "$to_remove" | xargs npm uninstall -g
+[[ -n "$to_remove" ]] && echo "$to_remove" | xargs pnpm uninstall -g
 
 echo "Done, reload your shell to finish"
